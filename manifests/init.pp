@@ -23,6 +23,18 @@ class nginx::base {
         require => Package[nginx],
     }
 
+    file{nginx.conf:
+        path => '/etc/nginx/nginx.conf',
+        source => [ "puppet://{$servername}/dist/nginx/nginx.conf-${fqdn}",
+                    "puppet://{$servername}/dist/nginx/nginx.conf-default",
+                    "puppet://{$servername}/nginx/nginx.conf-default" ],
+        owner => root,
+        group => 0,
+        mode => 0644,
+        require => Package[nginx],
+        notify => Service[nginx],
+    }
+
 }
 
 class nginx::gentoo inherits nginx::base {
