@@ -1,36 +1,36 @@
-# modules/skeleton/manifests/init.pp - manage skeleton stuff
+# modules/nginx/manifests/init.pp - manage nginx stuff
 # Copyright (C) 2007 admin@immerda.ch
 # GPLv3
 
-# modules_dir { "skeleton": }
+# modules_dir { "nginx": }
 
-class skeleton {
+class nginx {
     case $operatingsystem {
-        gentoo: { include skeleton::gentoo }
-        default: { include skeleton::base }
+        gentoo: { include nginx::gentoo }
+        default: { include nginx::base }
     }
 }
 
-class skeleton::base {
-    package{'skeleton':
+class nginx::base {
+    package{'nginx':
         ensure => installed,
     }
 
-    service{skeleton:
+    service{nginx:
         ensure => running,
         enable => true,
-        #hasstatus => true, #fixme!
-        require => Package[skeleton],
+        hasstatus => true, 
+        require => Package[nginx],
     }
 
 }
 
-class skeleton::gentoo inherits skeleton::base {
-    Package[skeleton]{
-        category => 'some-category',
+class nginx::gentoo inherits nginx::base {
+    Package[nginx]{
+        category => 'www-servers',
     }
 
     #conf.d file if needed
     # needs module gentoo
-    #gentoo::etcconfd { skeleton: require => "Package[skeleton]", notify => "Service[skeleton]"}
+    #gentoo::etcconfd { nginx: require => "Package[nginx]", notify => "Service[nginx]"}
 }
