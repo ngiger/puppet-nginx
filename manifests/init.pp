@@ -25,9 +25,9 @@ class nginx::base {
 
     file{nginx_config:
         path => '/etc/nginx/nginx.conf',
-        source => [ "puppet://{$servername}/dist/nginx/nginx.conf-${fqdn}",
-                    "puppet://{$servername}/dist/nginx/nginx.conf-default",
-                    "puppet://{$servername}/nginx/nginx.conf" ],
+        source => [ "puppet://${servername}/dist/nginx/nginx.conf-${fqdn}",
+                    "puppet://${servername}/dist/nginx/nginx.conf-default",
+                    "puppet://${servername}/nginx/nginx.conf" ],
         owner => root,
         group => 0,
         mode => 0644,
