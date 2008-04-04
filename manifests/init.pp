@@ -19,7 +19,7 @@ class nginx::base {
     service{nginx:
         ensure => running,
         enable => true,
-        hasstatus => true, 
+        hasstatus => false, 
         require => Package[nginx],
     }
 
