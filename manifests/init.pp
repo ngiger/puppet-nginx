@@ -16,7 +16,7 @@ class nginx::base {
         ensure => installed,
     }
 
-    service{nginx:
+    service{'nginx':
         ensure => running,
         enable => true,
         hasstatus => false, 
