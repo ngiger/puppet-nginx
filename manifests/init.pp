@@ -25,24 +25,19 @@ class nginx::base {
 
     file{nginx_config:
         path => '/etc/nginx/nginx.conf',
-        source => [ "puppet://${servername}/files/nginx/${fqdn}/nginx.conf",
-                    "puppet://${servername}/files/nginx/nginx.conf",
-                    "puppet://${servername}/nginx/nginx.conf" ],
+        source => [ "puppet://$server/files/nginx/${fqdn}/nginx.conf",
+                    "puppet://$server/files/nginx/nginx.conf",
+                    "puppet://$server/nginx/nginx.conf" ],
         owner => root,
         group => 0,
         mode => 0644,
         require => Package[nginx],
         notify => Service[nginx],
     }
-
 }
 
 class nginx::gentoo inherits nginx::base {
     Package[nginx]{
         category => 'www-servers',
     }
-
-    #conf.d file if needed
-    # needs module gentoo
-    #gentoo::etcconfd { nginx: require => "Package[nginx]", notify => "Service[nginx]"}
 }
